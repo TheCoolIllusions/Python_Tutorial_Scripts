@@ -1,5 +1,20 @@
-import pygame
+import subprocess
 import sys
+
+def install(package):
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
+
+try:
+    import pygame
+    import sys
+
+except ModuleNotFoundError:
+       print("[-] Pygame not found. ")
+       print("[+] Installing...")
+       install('pygame')
+       import pygame
+
+
 
 pygame.init()
 
@@ -7,6 +22,7 @@ pygame.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Ping Pong ~ by Surge")
 
 #Colors
 WHITE = (255, 255, 255)
@@ -96,12 +112,12 @@ def main():
                 score2 += 1
                 ball.x = SCREEN_WIDTH / 2
                 ball.y = SCREEN_HEIGHT / 2
-                ball.speed_x = -BALL_SPEED_X
+                ball.speed_x = -BALL_SPEED
             elif ball.x > SCREEN_WIDTH - BALL_SIZE:
                 score1 += 1
                 ball.x = SCREEN_WIDTH / 2
                 ball.y = SCREEN_HEIGHT / 2
-                ball.speed_x = -BALL_SPEED_X
+                ball.speed_x = -BALL_SPEED
 
             screen.fill(BLACK)
             pygame.draw.rect(screen, WHITE, paddle1)
